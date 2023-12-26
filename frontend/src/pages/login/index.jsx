@@ -16,7 +16,8 @@ export const Login = () => {
 
   const toggleVisibility = () => setIsVisible(!isVisible);
 
-  const redirectIndex = () => {
+  const redirectIndex = (event) => {
+    event.preventDefault()
     navigate('/')
   }
 
@@ -34,7 +35,7 @@ export const Login = () => {
             }}
           />
           <Logo className='text-xl' />
-          <form className='flex flex-col gap-2'>
+          <form className='flex flex-col gap-2' onSubmit={redirectIndex}>
             <Input type="text" label="Usuario" size='sm' className='w-[300px]' variant='bordered' />
             <Input
               label='Contraseña'
@@ -52,12 +53,14 @@ export const Login = () => {
 
               type={isVisible ? "text" : "password"}
             />
-            <Button color='primary' radius='sm' onClick={redirectIndex}>
-              Entrar al Sistema
-            </Button>
+            <button>
+              <Button color='primary' radius='sm'>
+                Entrar al Sistema
+              </Button>
+            </button>
           </form>
         </Card>
       </main>
-    </ContentPage>
+    </ContentPage >
   )
 }
