@@ -1,24 +1,17 @@
-import { NextUIProvider } from '@nextui-org/system'
-import { Button } from "@nextui-org/button"
+import { Login } from './pages/login'
+import { WelcomePage } from "./pages/welcome-page"
+import { Route, Routes } from 'react-router-dom'
 import './App.css'
+
+const NotFound = () => <h1>Error 404</h1>
 
 function App() {
   return (
-    <NextUIProvider>
-      <div className='h-screen w-screen bg-gray-900 text-white'>
-        <header></header>
-        <article>
-          <h1>Bienvenid@ al sistema de gestion de profesores</h1>
-          <p>Usuario: Jose Oviedo</p>
-          <Button
-            isDisabled
-            color='primary'
-          >
-            Example Button
-          </Button>
-        </article>
-      </div>
-    </NextUIProvider>
+    <Routes>
+      <Route path='/' element={<WelcomePage />} />
+      <Route path='/login' element={<Login />} />
+      <Route path='*' element={<NotFound />} />
+    </Routes>
   )
 }
 

@@ -10,12 +10,17 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@nextui-org/avatar": "2.0.24",
     "@nextui-org/button": "2.0.26",
+    "@nextui-org/card": "2.0.24",
+    "@nextui-org/divider": "2.0.25",
+    "@nextui-org/link": "2.0.26",
     "@nextui-org/system": "2.0.15",
     "@nextui-org/theme": "2.1.17",
     "framer-motion": "10.16.16",
     "react": "18.2.0",
-    "react-dom": "18.2.0"
+    "react-dom": "18.2.0",
+    "react-router-dom": "6.21.1"
   },
   "devDependencies": {
     "@types/react": "18.2.43",
@@ -32,6 +37,8 @@
     "vite": "5.0.8"
   },
   "eslintConfig": {
-    "extends": "./node_modules/standard/eslintrc.json"
+    "extends": [
+      "./node_modules/standard/eslintrc.json"
+    ]
   }
 }
