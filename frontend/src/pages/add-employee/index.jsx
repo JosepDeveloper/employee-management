@@ -6,12 +6,12 @@ import { Input } from '@nextui-org/input'
 import { Select } from '@nextui-org/select'
 import { SelectItem } from '@nextui-org/select'
 import { Button } from '@nextui-org/button'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { addEmployeeElement, getPositions } from '../../services/rootLocalStorage'
 
 export const AddEmploye = () => {
   const position = getPositions()
-
+  const navigation = useNavigate()
 
   const addEmployee = (event) => {
     event.preventDefault()
@@ -19,6 +19,7 @@ export const AddEmploye = () => {
       new FormData(event.target)
     )
     addEmployeeElement(data)
+    navigation('/employees')
   }
 
   return (
