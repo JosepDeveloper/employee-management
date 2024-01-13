@@ -5,7 +5,5 @@
  * @returns {ReactNode}
  */
 export const Logo = () => (
-  <span className='font-semibold'>
-    Sistema<span className='text-blue-800 font-serif'>Web</span>
-  </span>
+  <img className='w-[70px] h-auto' src='/public/images/unesLogo.png' alt='Logo de la UNES' title='UNES' />
 )

@@ -1,47 +1,71 @@
-import { Card } from '@nextui-org/card'
-import { ContentPage } from '../../components/content-page'
-import { Avatar, AvatarIcon } from '@nextui-org/avatar'
-import { Logo } from '../../components/logo.jsx'
-import { Input } from '@nextui-org/input'
-import { useState } from 'react'
-import { EyeSlashFilledIcon } from '../../assets/images/eye-slash-filled-icon.jsx'
-import { EyeFilledIcon } from '../../assets/images/eye-filled-icon.jsx'
-import { Button } from '@nextui-org/button'
-import { useNavigate } from 'react-router-dom'
-
+import { Card } from "@nextui-org/card"
+import { NextUIProvider } from "@nextui-org/system"
+import { Input } from "@nextui-org/input"
+import { useState } from "react";
+import { EyeFilledIcon } from "../../assets/images/eye-filled-icon";
+import { EyeSlashFilledIcon } from "../../assets/images/eye-slash-filled-icon";
+import { Button } from "@nextui-org/button";
+import { getUsers, resetLocalStorageRoot, setSesion } from "../../services/rootLocalStorage";
+import { useNavigate } from "react-router-dom";
+import { Avatar, AvatarIcon } from "@nextui-org/avatar";
 
 export const Login = () => {
-  const [isVisible, setIsVisible] = useState(false);
-  const navigate = useNavigate();
+  const [band, setBand] = useState(false)
+  const [isVisible, setIsVisible] = useState(false)
+  const toggleVisibility = () => setIsVisible(!isVisible)
+  const navigate = useNavigate()
 
-  const toggleVisibility = () => setIsVisible(!isVisible);
+  resetLocalStorageRoot()
 
-  const redirectIndex = (event) => {
+  const redirectLogin = (event) => {
     event.preventDefault()
-    navigate('/')
+
+    const data = Object.fromEntries(
+      new FormData(event.target)
+    )
+
+    const users = getUsers()
+
+    users.forEach(element => {
+      if (element.user === data.user && element.password === data.password) {
+        setBand(false)
+        setSesion(element.user)
+        navigate('/')
+      }
+    })
+
+    setBand(true)
   }
 
   return (
-    <ContentPage>
-      <main className='h-full w-full grid place-content-center'>
-        <Card className='bg-gray-700 bg-opacity-30 h-[550px] w-[500px] flex gap-5 justify-center items-center'>
+    <NextUIProvider>
+      <div className='dark h-screen w-screen bg-gray-900 text-foreground font-sans grid place-content-center'>
+        <Card className='bg-slate-950 w-[550px] h-[550px] flex flex-col justify-center items-center gap-5'>
           <Avatar
             icon={<AvatarIcon />}
-            isBordered
-            className="w-28 h-28 text-large"
             classNames={{
               base: "bg-gradient-to-br from-[#FFB457] to-[#FF705B]",
               icon: "text-black/80",
             }}
+            className="w-20 h-20 text-large"
           />
-          <Logo className='text-xl' />
-          <form className='flex flex-col gap-2' onSubmit={redirectIndex}>
-            <Input type="text" label="Usuario" size='sm' className='w-[300px]' variant='bordered' />
+          <form className='flex flex-col justify-center items-center gap-4' onSubmit={redirectLogin}>
             <Input
-              label='Contraseña'
-              size='sm'
-              className='w-[300px]'
+              type='text'
               variant='bordered'
+              label='Usuario'
+              className='w-[300px]'
+              name='user'
+              isInvalid={band}
+              errorMessage={band && 'Usuario Incorrecto'}
+              isRequired
+            />
+            <Input
+              type={isVisible ? "text" : "password"}
+              variant='bordered'
+              label='Contraseña'
+              className='w-[300px]'
+              name='password'
               endContent={
                 <button className="focus:outline-none" type="button" onClick={toggleVisibility}>
                   {isVisible ? (
@@ -49,18 +73,16 @@ export const Login = () => {
                   ) : (
                     <EyeFilledIcon className="text-2xl text-default-400 pointer-events-none" />
                   )}
-                </button>}
-
-              type={isVisible ? "text" : "password"}
+                </button>
+              }
+              isInvalid={band}
+              errorMessage={band && 'Contraseña Incorrecto'}
+              isRequired
             />
-            <button>
-              <Button color='primary' radius='sm'>
-                Entrar al Sistema
-              </Button>
-            </button>
+            <Button type="submit" color='primary' className='w-[150px]'>Entrar al Sistema</Button>
           </form>
         </Card>
-      </main>
-    </ContentPage >
+      </div>
+    </NextUIProvider>
   )
 }
