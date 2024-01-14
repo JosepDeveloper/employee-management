@@ -13,7 +13,7 @@ export const CardWelcome = ({ user }) => {
     <article className="h-[93%] flex justify-center items-center">
       <Card className="bg-gray-700 bg-opacity-30 h-4/5 w-8/12" >
         <CardHeader className="h-1/5 pl-10">
-          <h1 className='text-2xl'>Bienvenid@ al sistema de gestion de profesores</h1>
+          <h1 className='text-2xl'>Bienvenid@ al sistema de gestion de personal administrativo</h1>
         </CardHeader>
         <Divider />
         <CardBody className="h-4/5 pl-10 pt-20 flex flex-col gap-20">
