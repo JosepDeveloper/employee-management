@@ -64,7 +64,7 @@ export const redirectToLogin = () => {
   const storage = localStorage
   const data = JSON.parse(storage.getItem('sesion'))
 
-  if (data.state === false) {
+  if (data === null || data.state === false) {
     return true
   }
 
@@ -74,6 +74,10 @@ export const redirectToLogin = () => {
 export const getUser = () => {
   const storage = localStorage
   const data = JSON.parse(storage.getItem('sesion'))
+
+  if (data === null) {
+    location.href = `${location.href}login`
+  }
 
   return data.name
 }
