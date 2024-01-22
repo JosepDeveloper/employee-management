@@ -12,6 +12,8 @@ import { useMemo } from "react"
 import { ContentPage } from '../../components/content-page'
 import { Button } from "@nextui-org/button"
 import { deleteEmployee, getEmployees } from "../../services/rootLocalStorage"
+import { PDFDownloadLink } from "@react-pdf/renderer"
+import { PDF } from "../../components/PDF"
 
 export const EmployeesPage = () => {
   const users = getEmployees()
@@ -55,9 +57,14 @@ export const EmployeesPage = () => {
       <Header selectedLink={LINKS.employees} />
       <main className='pt-20 grid place-content-center'>
         <div>
-          <Button size='md' color='primary' className='mb-3'>
+          <Button size='md' color='primary' className='mb-3 mr-4'>
             <Link to={'/employees/add'}>Agregar Empleado</Link>
           </Button>
+          <PDFDownloadLink document={<PDF />} fileName='TablaEmpleados.pdf'>
+            {
+              ({ loading }) => loading ? (<Button isLoading color='secondary'>Cargando</Button>) : (<Button color='secondary'>Descargar tablas de empleados</Button>)
+            }
+          </PDFDownloadLink>
           <Table aria-label="Tabla de empleados" bottomContent={
             <div className="flex w-full justify-center">
               <Pagination

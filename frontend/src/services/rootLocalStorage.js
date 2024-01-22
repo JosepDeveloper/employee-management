@@ -172,3 +172,17 @@ export const deleteEmployee = (id) => {
 
   storage.setItem('employees', JSON.stringify(result))
 }
+
+export const updateUser = (id, user, password) => {
+  const storage = localStorage
+  const users = JSON.parse(storage.getItem('users'))
+
+  const userToUpdateIndex = users.findIndex(user => {
+    return user.id === id
+  })
+
+  users[userToUpdateIndex].user = user
+  users[userToUpdateIndex].password = password
+
+  storage.setItem('users', JSON.stringify(users))
+}
